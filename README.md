@@ -1,3 +1,25 @@
+The object detection code has been taken from iArunava's github repo and is further used in this project. Since the original Yolo code by MIT is free of charge and licenses the user to use it as desired, there is bo breach of conduct. 
+
+PLease note: 
+
+1. Download the pretrained weights of Yolo from the link below and place it in the yolo3-coco folder:
+
+wget https://pjreddie.com/media/files/yolov3.weights
+
+2. Install darknet:
+
+git clone https://github.com/pjreddie/darknet
+cd darknet
+make
+
+Go to this link for further customizations : https://pjreddie.com/darknet/yolo/
+
+3. Open CV version must be 3.3 or higher (I am currently using version 4.1)
+To upgrade :  pip install --upgrade opencv-python
+
+Install numpy and other required dependencies. You are now ready to go!
+
+
 # YOLOv3-Object-Detection-with-OpenCV
 
 This project implements an image and video object detection classifier using pretrained yolov3 models. 
