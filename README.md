@@ -30,12 +30,12 @@ The yolov3 models are taken from the official yolov3 paper which was released in
 1) Clone the repository
 
 ```
-git clone https://github.com/iArunava/YOLOv3-Object-Detection-with-OpenCV.git
+git clone https://github.com/Sanskar777/elmart.git
 ```
 
 2) Move to the directory
 ```
-cd YOLOv3-Object-Detection-with-OpenCV
+cd elmart
 ```
 
 3) To infer on an image that is stored on your local machine
