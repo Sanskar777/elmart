@@ -1,16 +1,16 @@
-The object detection code has been taken from iArunava's github repo and is further used in this project. Since the original Yolo code by MIT is free of charge and licenses the user to use it as desired, there is bo breach of conduct. 
+The object detection code has been taken from iArunava's github repo and is further used in this project. Since the original Yolov code by MIT is free of charge and licenses the user to use it as desired, there is bo breach of conduct. 
 
 PLease note: 
 
-1. Download the pretrained weights of Yolo from the link below and place it in the yolo3-coco folder:
+1. Download the pretrained weights of Yolov from the link below and place it in the yolov3-coco folder:
 
 wget https://pjreddie.com/media/files/yolov3.weights
 
 2. Install darknet:
 
-git clone https://github.com/pjreddie/darknet
-cd darknet
-make
+git clone https://github.com/pjreddie/darknet                                                                                                   
+cd darknet                                                                                                                                   
+make                                                                                                                                                          
 
 Go to this link for further customizations : https://pjreddie.com/darknet/yolo/
 
