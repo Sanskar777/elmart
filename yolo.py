@@ -5,6 +5,7 @@ import subprocess
 import time
 import os
 from yolo_utils import infer_image, show_image
+import math
 
 FLAGS = []
 
@@ -90,7 +91,7 @@ if __name__ == '__main__':
 	# Get the output layer names of the model
 	layer_names = net.getLayerNames()
 	layer_names = [layer_names[i[0] - 1] for i in net.getUnconnectedOutLayers()]
-        
+
 	# If both image and video files are given then raise error
 	if FLAGS.image_path is None and FLAGS.video_path is None:
 	    print ('Neither path to an image or path to video provided')
@@ -107,8 +108,34 @@ if __name__ == '__main__':
                                Please check the path provided!'
 
 		finally:
-			img, _, _, _, _ = infer_image(net, layer_names, height, width, img, colors, labels, FLAGS)
+			img, _, _, _, _ ,info= infer_image(net, layer_names, height, width, img, colors, labels, FLAGS)
+
+			height, width = img.shape[:2]
+			alpha = 4
+			image_y = height/2
+			image_x = width/2
+			cv.circle(img,(image_x,image_y),8,(255,0,0),-1)
+			print width
+			# print  'IMage x and image y coordinates are %d and % d respectively' %(image_x, image_y)
+			for iter in range(len(info)):
+				# print  'x and y coordinates are %d and % d respectively' %(info[iter][0], info[iter][1])
+				x = info[iter][0]
+				y = info[iter][1]
+				# angle = math.degrees(math.atan(100/-2))
+				# angle = math.degrees(math.atan((-info[iter][1]+image_y)/(info[iter][0]-image_x)))
+				if x > image_x + width/alpha and y > image_y - height/alpha:
+					pos = 'straight and right'
+				elif x < image_x - width/alpha and y > image_y - height/alpha:
+					pos = 'straight and left'
+				elif x > image_x - width/alpha and y < image_y - height/alpha:
+					pos = 'right'
+				elif x < image_x - width/alpha and y < image_y - height/alpha:
+					pos = 'left'
+				else:
+					pos = 'straight ahead'
+				print 'For reaching %s go %s' % (info[iter][2],pos)
 			show_image(img)
+
 
 	elif FLAGS.video_path:
 		# Read the video
@@ -131,12 +158,12 @@ if __name__ == '__main__':
 				if width is None or height is None:
 					height, width = frame.shape[:2]
 
-				frame, _, _, _, _ = infer_image(net, layer_names, height, width, frame, colors, labels, FLAGS)
+				frame, _, _, _, _,_= infer_image(net, layer_names, height, width, frame, colors, labels, FLAGS)
 
 				if writer is None:
 					# Initialize the video writer
 					fourcc = cv.VideoWriter_fourcc(*"MJPG")
-					writer = cv.VideoWriter(FLAGS.video_output_path, fourcc, 30, 
+					writer = cv.VideoWriter(FLAGS.video_output_path, fourcc, 30,
 						            (frame.shape[1], frame.shape[0]), True)
 
 
@@ -157,11 +184,11 @@ if __name__ == '__main__':
 			height, width = frame.shape[:2]
 
 			if count == 0:
-				frame, boxes, confidences, classids, idxs = infer_image(net, layer_names, \
+				frame, boxes, confidences, classids, idxs,_= infer_image(net, layer_names, \
 		    						height, width, frame, colors, labels, FLAGS)
 				count += 1
 			else:
-				frame, boxes, confidences, classids, idxs = infer_image(net, layer_names, \
+				frame, boxes, confidences, classids, idxs,_ = infer_image(net, layer_names, \
 		    						height, width, frame, colors, labels, FLAGS, boxes, confidences, classids, idxs, infer=False)
 				count = (count + 1) % 6
 
