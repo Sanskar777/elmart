@@ -1,4 +1,4 @@
-The object detection code has been taken from iArunava's github repo and is further used in this project. Since the original Yolov code by MIT is free of charge and licenses the user to use it as desired, there is no breach of conduct. 
+The yolov code by MIT has been used for object detection with modifications. 
 
 PLease note: 
 
